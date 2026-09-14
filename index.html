@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Ball Handlers — Game Planner</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .form-grid.three{grid-template-columns:1fr 130px 130px}.button-row{display:flex;flex-wrap:wrap;gap:8px}.file-button{border:1px solid #bac5ba;border-radius:8px;padding:9px 13px;cursor:pointer;font-weight:650}.file-button input{display:none}.tag-help{font-size:.83rem;margin:0 0 9px}.tag-chips{display:flex;flex-wrap:wrap;gap:7px}.tag-chips label{display:inline-flex;align-items:center;gap:5px;border:1px solid #c8d4c7;border-radius:999px;padding:6px 9px;font-size:.8rem;font-weight:650}.tag-chips input{accent-color:#246b46}.court{position:relative;min-height:310px;margin:16px 0;background:#d99251;border:5px solid #f5d19f;border-radius:10px;overflow:hidden;color:#fff}.court:before{content:"";position:absolute;width:58%;height:58%;border:3px solid #fff8;bottom:-27%;left:21%;border-radius:50%}.court:after{content:"";position:absolute;width:42%;height:25%;border:3px solid #fff8;border-bottom:0;bottom:0;left:29%}.court-label{position:absolute;top:11px;left:12px;font-size:.72rem;font-weight:750;letter-spacing:.1em}.court-player{position:absolute;transform:translate(-50%,-50%);width:45px;height:45px;border-radius:50%;background:#163a2b;border:2px solid #fff;color:#fff;display:grid;place-items:center;font-size:.78rem;font-weight:750;text-align:center;box-shadow:0 2px 4px #58351466}.court-player small{font-size:.57rem;display:block}.motion-arrow{position:absolute;color:#fff9;font-weight:750;font-size:1.35rem}.motion-key{font-size:.8rem;color:#607067;margin:7px 0 0}@media(max-width:720px){.form-grid.three{grid-template-columns:1fr 1fr}.form-grid.three label:first-child{grid-column:1 / -1}}
+    </style>
+    <style>
+      /* High-contrast light court theme */
+      body{background:linear-gradient(135deg,#f5f1e8,#e4ecdf);color:#17221d}.topbar{background:linear-gradient(115deg,#102f24,#21533d 58%,#845126);border-bottom-color:#d3ad62}.tabs{background:#fff;border-color:#d8dfd5}.tab{color:#526158}.tab.active{background:#e8f0df;color:#1f633f}.panel p,.note,.tag-help{color:#526158}.table-wrap,.plan-card,.game-player{background:#fff;border-color:#d8dfd5}.tactics{background:linear-gradient(120deg,#edf4e8,#f4eee2);border-color:#d2decf}.slot{background:#eff5eb}.empty-state{border-color:#afc1ae}.count-pill{background:#e5efd2;color:#315b2b}.button-row select{background:#fff;color:#17221d;border-color:#bac5ba}.file-button{background:#fff;border-color:#bac5ba}.game-player small,.slot small{color:#5a6a60}th,td,.shift{border-color:#e0e5dd}.meter{background:#e4e8e2}.meter i{background:linear-gradient(90deg,#4d8b5f,#b69a4c)}.toggle-row{flex-wrap:wrap;row-gap:8px}.toggle-row label{white-space:nowrap}
+    </style>
+    <style>
+      body{background:radial-gradient(circle at top right,#28352f 0,#121715 43rem);color:#eef2ec}.topbar{background:linear-gradient(115deg,#071b14,#153b2c 54%,#5b351c);border-bottom:1px solid #b88942}.tabs{background:#101613;border-color:#39453e}.tab{color:#abb8b0}.tab.active{background:#27382f;color:#e0bd70}.panel p,.note,.tag-help{color:#aab7ae}.table-wrap,.plan-card,.game-player{background:#18201c;border-color:#39453e}.tactics{background:linear-gradient(120deg,#172b20,#202319);border:1px solid #3e4a3d}.slot{background:#253228}.empty-state{border-color:#526153}.count-pill{background:#3a4528;color:#e9d881}.court{box-shadow:inset 0 0 40px #3f2009,0 12px 26px #0005}.primary{box-shadow:0 5px 15px #0a160f88}.button-row{align-items:center}.button-row select{background:#18201c;color:#eef2ec;border-color:#536357}.file-button{background:#18201c;border-color:#536357}.game-player small,.slot small{color:#abb8b0}th,td,.shift{border-color:#39453e}.meter{background:#36423b}.meter i{background:linear-gradient(90deg,#c19b4d,#e2cb78)}
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div><p class="eyebrow">REC BASKETBALL PLANNER</p><h1>The Ball Handlers</h1></div>
+      <div class="game-meta"><label>Game date <input id="game-date" type="date" /></label><span id="save-status" aria-live="polite">Saved locally</span></div>
+    </header>
+    <main>
+      <nav class="tabs" aria-label="Planner sections">
+        <button class="tab active" data-tab="players">Players</button>
+        <button class="tab" data-tab="game">Game night</button>
+        <button class="tab" data-tab="plan">Lineups &amp; shifts</button>
+      </nav>
+
+      <section id="players" class="panel active">
+        <div class="section-heading"><div><p class="eyebrow">TEAM POOL</p><h2>Player profiles</h2><p>Keep the whole team here. Add anyone who may join later.</p></div><div class="button-row"><button id="export-roster">Export roster</button><label class="file-button">Import roster<input id="import-roster" type="file" accept="application/json" /></label><button class="primary" id="new-player">Add player</button></div></div>
+        <div class="table-wrap"><table><thead><tr><th>Player</th><th>Height</th><th>Positions</th><th>Profile tags</th><th>Overall</th><th></th></tr></thead><tbody id="players-table"></tbody></table></div>
+      </section>
+
+      <section id="game" class="panel">
+        <div class="section-heading"><div><p class="eyebrow">GAME SETUP</p><h2>Who is playing?</h2><p>Mark attendance, then select up to 10 players to bring.</p></div><div class="count-pill" id="roster-count">0 / 10 selected</div></div>
+        <div id="game-roster" class="player-grid"></div>
+        <div class="tactics">
+          <div><p class="eyebrow">COACHING SETTINGS</p><h2>Game plan</h2></div>
+          <label>Offense<select id="offense"><option value="balanced">Balanced</option><option value="spacing">Spacing &amp; shooting</option><option value="bigs">Play through bigs</option><option value="transition">Push the pace</option><option value="movement">Ball movement</option></select></label>
+          <label>Defense<select id="defense"><option value="man">Man-to-man</option><option value="zone">Zone</option><option value="paint">Protect the paint</option><option value="perimeter">Pressure perimeter</option><option value="switch">Switch more</option></select></label>
+          <label>Priority<select id="priority"><option value="fair">Fair minutes</option><option value="balanced">Balanced</option><option value="win">Best chance to win</option></select></label>
+        </div>
+        <div class="plan-actions"><button class="primary" id="generate" disabled>Generate game plan</button><p id="game-warning" aria-live="polite">Select at least 5 players to create a plan.</p></div>
+      </section>
+
+      <section id="plan" class="panel">
+        <div class="section-heading"><div><p class="eyebrow">40-MINUTE GAME PLAN</p><h2>Lineups &amp; shifts</h2><p id="plan-summary">Set up a game night, then generate your plan.</p></div><div class="button-row"><select id="preset-list" aria-label="Saved lineups"><option value="">Saved lineups</option></select><button id="load-preset">Load &amp; lock</button><button id="save-preset">Save current five</button><button id="regenerate">Regenerate</button></div></div>
+        <div id="plan-output" class="empty-state">No plan yet.</div>
+      </section>
+    </main>
+
+    <dialog id="player-dialog"><form id="player-form" method="dialog">
+      <div class="dialog-title"><h2 id="dialog-heading">Add player</h2><button type="button" class="icon-button" id="close-dialog" aria-label="Close">×</button></div>
+      <input id="edit-id" type="hidden" />
+      <div class="form-grid three"><label>Name<input id="name" required maxlength="40" placeholder="e.g. Jordan Lee" /></label><label>Jersey number<input id="number" type="number" min="0" max="99" placeholder="3" /></label><label>Height<input id="height" maxlength="12" placeholder="e.g. 6'1&quot;" /></label></div>
+      <fieldset><legend>Positions</legend><div class="check-row"><label><input type="checkbox" name="position" value="PG" /> PG</label><label><input type="checkbox" name="position" value="SG" /> SG</label><label><input type="checkbox" name="position" value="SF" /> SF</label><label><input type="checkbox" name="position" value="PF" /> PF</label><label><input type="checkbox" name="position" value="C" /> C</label></div></fieldset>
+      <div id="ratings" class="ratings"></div>
+      <fieldset><legend>Profile tags</legend><p class="tag-help">Choose the traits that fit. These are used by the lineup generator.</p><div id="tag-chips" class="tag-chips"></div></fieldset>
+      <label>Coach notes <textarea id="notes" maxlength="160" placeholder="Optional context for you—these notes are not scored automatically."></textarea></label>
+      <div class="form-actions"><button type="button" id="delete-player" class="danger">Delete player</button><span></span><button type="button" id="cancel-dialog">Cancel</button><button class="primary" value="default">Save player</button></div>
+    </form></dialog>
+    <template id="rating-template"><label class="rating"><span></span><output>3</output><input type="range" min="1" max="5" value="3" /></label></template>
+    <script src="app.js"></script>
+  </body>
+</html>
