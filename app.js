@@ -4,12 +4,12 @@ const tagOptions={
  'Shooter':{shoot:1.2},'Corner shooter':{shoot:.8},'Playmaker':{handle:.7,pass:1.1},'Slasher':{handle:.5,speed:.6},'Finisher':{shoot:.4},'Screen setter':{rebound:.25},'Rim protector':{defense:1.1,rebound:.4},'Rebounder':{rebound:1.1},'Lockdown defender':{defense:1.2},'On-ball defender':{defense:.8},'Quick guard':{speed:.8,handle:.3},'Versatile defender':{defense:.8},'High motor':{stamina:.8},'Floor spacer':{shoot:1},'Post scorer':{shoot:.4,rebound:.4},'Transition runner':{speed:1,stamina:.4},'Turnover-prone':{handle:-.8,pass:-.5},'Defensive effort concern':{defense:-1.1}
 };
 const defaultPlayers=[
- {id:'jordan',name:'Jordan Lee',number:3,positions:['PG','SG'],tags:'Playmaker, on-ball defense',ratings:[3,5,4,2,4,4,4]},
- {id:'maya',name:'Maya Chen',number:7,positions:['SG','SF'],tags:'Catch-and-shoot, hustles',ratings:[5,3,3,2,3,4,4]},
- {id:'andre',name:'Andre Silva',number:11,positions:['SF','PF'],tags:'Slasher, rebounder',ratings:[3,3,3,4,3,4,4]},
- {id:'sam',name:'Sam Patel',number:22,positions:['PF','C'],tags:'Screen setter, rim protector',ratings:[2,2,3,4,5,2,4]},
- {id:'taylor',name:'Taylor Brooks',number:34,positions:['C'],tags:'Rebounding, interior defense',ratings:[2,1,2,5,4,2,4]},
- {id:'nico',name:'Nico Grant',number:14,positions:['SG','PG'],tags:'Scoring spark, quick guard',ratings:[4,4,2,2,2,5,3]}
+ {id:'Adam',name:'Adam',number:3,positions:['PG','SG'],tags:'Playmaker, on-ball defense',ratings:[3,5,4,2,4,4,4]},
+ {id:'Chris',name:'Chris',number:7,positions:['SG','SF'],tags:'Catch-and-shoot, hustles',ratings:[5,3,3,2,3,4,4]},
+ {id:'Jaden1',name:'LeBron James',number:11,positions:['SF','PF'],tags:'Slasher, rebounder',ratings:[3,3,3,4,3,4,4]},
+ {id:'Jaden2',name:'Joel Embiid',number:22,positions:['PF','C'],tags:'Screen setter, rim protector',ratings:[2,2,3,4,5,2,4]},
+ {id:'Rohan',name:'Tyrese Maxey',number:34,positions:['C'],tags:'Shooter',ratings:[2,1,2,5,4,2,4]},
+ {id:'Owen',name:'Owen',number:14,positions:['SG','PG'],tags:'Scoring spark, quick guard',ratings:[4,4,2,2,2,5,3]}
 ];
 let players=JSON.parse(localStorage.getItem(KEYS.players)||'null')||defaultPlayers;
 const starterTags={jordan:['Playmaker','On-ball defender'],maya:['Shooter','Corner shooter'],andre:['Slasher','Rebounder'],sam:['Screen setter','Rim protector'],taylor:['Rebounder','Rim protector'],nico:['Shooter','Quick guard']};
