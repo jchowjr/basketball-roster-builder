@@ -1,0 +1,23 @@
+export const POSITIONS = ['PG', 'SG', 'SF', 'PF', 'C'] as const;
+export const ROLES = ['primary_creator', 'secondary_creator', 'floor_spacer', 'rim_pressure', 'point_of_attack_defender', 'wing_stopper', 'rim_protector', 'rebounder', 'screen_setter', 'connector'] as const;
+export type Position = typeof POSITIONS[number];
+export type Role = typeof ROLES[number];
+export type Priority = 'fair' | 'balanced' | 'win';
+export type Tactic = 'balanced' | 'spacing' | 'pace' | 'interior' | 'movement';
+export type DefenseTactic = 'man' | 'zone' | 'paint' | 'perimeter' | 'switch';
+export type Ratings = {
+  shooting: { shooting: number; spacing: number };
+  playmaking: { handle: number; passing: number; decisions: number };
+  finishing: { rimPressure: number; finishing: number };
+  defense: { poa: number; help: number; rimProtection: number };
+  physical: { rebounding: number; size: number; mobility: number; stamina: number };
+};
+export type ShadesOf = { floor?: string; likely?: string; ceiling?: string };
+export type Player = { id: string; name: string; jerseyNumber?: string; height?: string; positions: Position[]; ratings: Ratings; roles: Role[]; archetype: string; coachNotes?: string; shadesOf?: ShadesOf; createdAt: string; updatedAt: string };
+export type GameSettings = { date: string; selectedIds: string[]; starterLocks: string[]; offense: Tactic; defense: DefenseTactic; priority: Priority };
+export type LineupPreset = { id: string; name: string; playerIds: string[]; intendedUse?: string; createdAt: string };
+export type Shift = { start: number; end: number; playerIds: string[]; score: number };
+export type SavedGamePlan = { id: string; name: string; createdAt: string; settings: GameSettings; starterIds: string[]; shifts: Shift[]; minuteTargets: Record<string, number>; algorithmVersion: string };
+export type Store = { version: 2; players: Player[]; game: GameSettings; presets: LineupPreset[]; plans: SavedGamePlan[] };
+export const emptyRatings = (): Ratings => ({ shooting: { shooting: 5, spacing: 5 }, playmaking: { handle: 5, passing: 5, decisions: 5 }, finishing: { rimPressure: 5, finishing: 5 }, defense: { poa: 5, help: 5, rimProtection: 5 }, physical: { rebounding: 5, size: 5, mobility: 5, stamina: 5 } });
+export const defaultGame = (): GameSettings => ({ date: '', selectedIds: [], starterLocks: [], offense: 'balanced', defense: 'man', priority: 'balanced' });
